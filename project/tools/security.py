@@ -30,7 +30,7 @@ def generate_token(email, password, password_hash, is_refresh=False):
         return None
 
     if not is_refresh:
-        if not compare_password(password_user=password, password_hash=password_hash):
+        if not compare_password(password=password, password_hash=password_hash):
             return None
 
     data = {

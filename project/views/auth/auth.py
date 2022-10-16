@@ -19,7 +19,7 @@ class RegisterView(Resource):
 
 @api.route('/login/')
 class LoginView(Resource):
-    @api.response(404)
+    @api.response(404, "Not Found")
     def post(self):
         data = request.json
         if data.get('email') and data.get('password'):
