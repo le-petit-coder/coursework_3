@@ -22,8 +22,14 @@ class BaseDAO(Generic[T]):
     def get_by_id(self, pk: int) -> Optional[T]:
         return self._db_session.query(self.__model__).get(pk)
 
-    def get_all(self, page: Optional[int] = None) -> List[T]:
+    def get_all(self, filter, page: Optional[int] = None) -> List[T]:
         stmt: BaseQuery = self._db_session.query(self.__model__)
+        if filter:
+            try:
+                stmt = self._db_session.query(filter)
+                return stmt.all()
+            except NotFound:
+                return []
         if page:
             try:
                 return stmt.paginate(page, self._items_per_page).items
