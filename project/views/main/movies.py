@@ -18,10 +18,10 @@ class MoviesView(Resource):
         """
 
         filter = request.args.get('status')
-        if filter != None and (filter == 'new' or filter == "old"):
+        if filter == 'new' or filter == "old":
             return movie_service.get_all(filter=filter, **page_parser.parse_args())
         else:
-            return movie_service.get_all(**page_parser.parse_args())
+            return movie_service.get_all(filter=filter, **page_parser.parse_args())
 
 
 @api.route('/<int:movie_id>/')
